@@ -3,6 +3,9 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { GetServerSideProps } from "next";
+import { NewsArticle, NewsResponse } from "@/models/NewsArticles";
+import NewsArticleEntry from "@/components/NewsArticleEntry";
+import NewsArticlesGrid from "@/components/NewsArticlesGrid";
 
 interface BreakingNewsPageProps {
   newsArticles: NewsArticle[];
@@ -11,19 +14,21 @@ interface BreakingNewsPageProps {
 export const getServerSideProps: GetServerSideProps<
   BreakingNewsPageProps
 > = async () => {
-  const res = await fetch(
-    "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=" +
-      process.env.NEWS_API_KEY
+  const response = await fetch(
+    ` https://newsapi.org/v2/everything?q=bitcoin&apiKey=${process.env.NEWS_API_KEY}`
   );
-  const data = await res.json();
+  const newsResponse: NewsResponse = await response.json();
+
   return {
     props: {
-      newsArticles: data.articles,
+      newsArticles: newsResponse.articles,
     },
   };
 };
 
-export default function BreakingNewsPage() {
+export default function BreakingNewsPage({
+  newsArticles,
+}: BreakingNewsPageProps) {
   return (
     <>
       <Head>
@@ -31,6 +36,7 @@ export default function BreakingNewsPage() {
       </Head>
       <main>
         <h1>Breaking News!</h1>
+        <NewsArticlesGrid articles={newsArticles} />
       </main>
     </>
   );

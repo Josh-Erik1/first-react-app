@@ -6,6 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log(req, res);
   const searchQuery = req.query.q?.toString();
 
   if (!searchQuery) {

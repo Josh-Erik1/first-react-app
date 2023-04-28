@@ -13,6 +13,7 @@ const SearchNewsPage = () => {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
+
     const searchQuery = formData.get("searchQuery")?.toString().trim();
 
     if (searchQuery) {

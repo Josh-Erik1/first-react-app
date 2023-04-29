@@ -1,4 +1,4 @@
-import { NewsArticle } from "@/../models/NewsArticles";
+import { NewsArticle } from "@/models/NewsArticles";
 import NewsArticlesGrid from "@/components/NewsArticlesGrid";
 import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";

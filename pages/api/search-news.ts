@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { NewsResponse } from "@/../models/NewsArticles";
+import { NewsResponse } from "@/models/NewsArticles";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

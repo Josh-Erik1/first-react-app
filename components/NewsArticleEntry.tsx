@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import { NewsArticle } from "../../models/NewsArticles";
+import { NewsArticle } from "../models/NewsArticles";
 import styles from "../styles/NewsArticleEntry.module.css";
 import newsImage from "@/assets/newsimage.jpg";
 import Image from "next/image";

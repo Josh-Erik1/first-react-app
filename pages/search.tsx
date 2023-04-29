@@ -5,7 +5,9 @@ import NewsArticlesGrid from "@/components/NewsArticlesGrid";
 import Head from "next/head";
 
 const SearchNewsPage = () => {
-  const [searchResults, setSearchResults] = useState<NewsArticle | null>(null);
+  const [searchResults, setSearchResults] = useState<NewsArticle[] | null>(
+    null
+  );
   const [searchResultsLoading, setSearchResultsLoading] = useState(false);
   const [searchResultsLoadingError, setSearchResultsLoadingError] =
     useState(false);
@@ -36,7 +38,7 @@ const SearchNewsPage = () => {
   return (
     <>
       <Head>
-        <title keys="title">Search News - NextJS News App</title>
+        <title key="title">Search News - NextJS News App</title>
       </Head>
 
       <main>

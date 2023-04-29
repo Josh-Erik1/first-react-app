@@ -3,6 +3,7 @@ import NewsArticlesGrid from "@/components/NewsArticlesGrid";
 import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { NewsResponse } from "@/models/NewsArticles";
 
 interface CategoryNewsPageProps {
   newsArticles: NewsArticle[];

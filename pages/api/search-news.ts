@@ -17,7 +17,7 @@ export default async function handler(
     `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${process.env.NEWS_API_KEY}`
   );
 
-  const newsResponse: NewsRespponse = await response.json();
+  const newsResponse: NewsResponse = await response.json();
 
   res.status(200).json(newsResponse.articles);
 }

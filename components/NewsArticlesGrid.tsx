@@ -7,6 +7,8 @@ interface NewsArticlesGridProps {
 }
 
 const NewsArticlesGrid = ({ articles }: NewsArticlesGridProps) => {
+  const currentPage = [];
+
   return (
     <Row xs={1} sm={2} xl={3} className="g-4">
       {articles.map((article) => (

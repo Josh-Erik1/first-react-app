@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
+import { Button, Form, Pagination, Spinner } from "react-bootstrap";
 import { NewsArticle } from "@/models/NewsArticles";
 import NewsArticlesGrid from "@/components/NewsArticlesGrid";
 import Head from "next/head";

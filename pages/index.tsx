@@ -4,6 +4,9 @@ import { GetServerSideProps } from "next";
 import { NewsArticle, NewsResponse } from "@/models/NewsArticles";
 import NewsArticleEntry from "@/components/NewsArticleEntry";
 import NewsArticlesGrid from "@/components/NewsArticlesGrid";
+import { useState } from "react";
+// import { Pagination } from "react-bootstrap";
+import Pagination from "@/components/Pagination";
 
 interface BreakingNewsPageProps {
   newsArticles: NewsArticle[];
@@ -27,6 +30,13 @@ export const getServerSideProps: GetServerSideProps<
 export default function BreakingNewsPage({
   newsArticles,
 }: BreakingNewsPageProps) {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postPerPage, setPostPerPage] = useState<number>(12);
+
+  const lastPostIndex: number = currentPage * postPerPage;
+  const firstPostIndex: number = lastPostIndex - postPerPage;
+  const currentPost = newsArticles.slice(firstPostIndex, lastPostIndex);
+
   return (
     <>
       <Head>
@@ -34,7 +44,13 @@ export default function BreakingNewsPage({
       </Head>
       <main>
         <h1>Breaking News!</h1>
-        <NewsArticlesGrid articles={newsArticles} />
+
+        <NewsArticlesGrid articles={currentPost} />
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          postPerPage={postPerPage}
+          totalPosts={newsArticles.length}
+        />
       </main>
     </>
   );

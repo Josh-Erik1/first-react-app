@@ -3,11 +3,13 @@ import React from "react";
 interface PaginationProps {
   totalPosts: number | any;
   postPerPage: number;
-  setCurrentPage: (page: number) => void;
+  currentPage: number;
+  setCurrentPage: (page: (prev: number) => number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   totalPosts,
+  currentPage,
   postPerPage,
   setCurrentPage,
 }: PaginationProps) => {
@@ -16,16 +18,55 @@ const Pagination: React.FC<PaginationProps> = ({
   for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
     pages.push(i);
   }
+
   return (
-    <div>
+    <div className="pagination">
+      <span
+        className="pagination__nav"
+        onClick={() => {
+          setCurrentPage((prev) => {
+            if (prev === 1) {
+              return prev;
+            } else {
+              return prev - 1;
+            }
+          });
+          window.scrollTo(0, 0);
+        }}
+      >
+        Prev
+      </span>
       {pages.map((page, index) => {
         return (
-          <button key={index} onClick={() => setCurrentPage(page)}>
-            {" "}
+          <button
+            className={`pagination__button ${
+              page == currentPage ? "active" : ""
+            }`}
+            key={index}
+            onClick={() => {
+              setCurrentPage(page);
+              window.scrollTo(0, 0);
+            }}
+          >
             {page}
           </button>
         );
       })}
+      <span
+        className="pagination__nav"
+        onClick={() => {
+          setCurrentPage((prev) => {
+            if (prev === 9) {
+              return prev;
+            } else {
+              return prev + 1;
+            }
+          });
+          window.scrollTo(0, 0);
+        }}
+      >
+        Next
+      </span>
     </div>
   );
 };

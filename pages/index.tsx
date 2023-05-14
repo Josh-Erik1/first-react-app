@@ -50,6 +50,7 @@ export default function BreakingNewsPage({
           setCurrentPage={setCurrentPage}
           postPerPage={postPerPage}
           totalPosts={newsArticles.length}
+          currentPage={currentPage}
         />
       </main>
     </>

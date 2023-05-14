@@ -1,8 +1,9 @@
 import { FormEvent, useState } from "react";
-import { Button, Form, Pagination, Spinner } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { NewsArticle } from "@/models/NewsArticles";
 import NewsArticlesGrid from "@/components/NewsArticlesGrid";
 import Head from "next/head";
+import Pagination from "../components/Pagination";
 
 const SearchNewsPage = () => {
   const [searchResults, setSearchResults] = useState<NewsArticle[] | null>(
@@ -11,6 +12,11 @@ const SearchNewsPage = () => {
   const [searchResultsLoading, setSearchResultsLoading] = useState(false);
   const [searchResultsLoadingError, setSearchResultsLoadingError] =
     useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postPerPage, setPostPerPage] = useState<number>(12);
+
+  const lastPostIndex: number = currentPage * postPerPage;
+  const firstPostIndex: number = lastPostIndex - postPerPage;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,6 +40,8 @@ const SearchNewsPage = () => {
       }
     }
   }
+
+  const currentPost = searchResults?.slice(firstPostIndex, lastPostIndex);
 
   return (
     <>
@@ -69,7 +77,19 @@ const SearchNewsPage = () => {
           {searchResults?.length === 0 && (
             <p>Nothing found! Try a different query</p>
           )}
-          {searchResults && <NewsArticlesGrid articles={searchResults} />}
+          {searchResults && (
+            <NewsArticlesGrid
+              articles={searchResults.slice(firstPostIndex, lastPostIndex)}
+            />
+          )}
+          {searchResults && (
+            <Pagination
+              setCurrentPage={setCurrentPage}
+              postPerPage={postPerPage}
+              totalPosts={searchResults.length}
+              currentPage={currentPage}
+            />
+          )}
         </div>
       </main>
     </>

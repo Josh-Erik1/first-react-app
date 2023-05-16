@@ -4,6 +4,8 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { NewsResponse } from "@/models/NewsArticles";
+import Pagination from "@/components/Pagination";
+import { useState } from "react";
 
 interface CategoryNewsPageProps {
   newsArticles: NewsArticle[];
@@ -47,6 +49,13 @@ export const getStaticProps: GetStaticProps<CategoryNewsPageProps> = async ({
 };
 
 const CategoryNewsPage = ({ newsArticles }: CategoryNewsPageProps) => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postPerPage, setPostPerPage] = useState<number>(12);
+
+  const lastPostIndex: number = currentPage * postPerPage;
+  const firstPostIndex: number = lastPostIndex - postPerPage;
+  const currentPost = newsArticles.slice(firstPostIndex, lastPostIndex);
+
   const router = useRouter();
   const categoryName = router.query.category?.toString().toUpperCase();
 
@@ -58,7 +67,13 @@ const CategoryNewsPage = ({ newsArticles }: CategoryNewsPageProps) => {
         <title key="title"> {`${title} - Erik's News App`}</title>
       </Head>
       <h1>{title}</h1>
-      <NewsArticlesGrid articles={newsArticles} />
+      <NewsArticlesGrid articles={currentPost} />
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        postPerPage={postPerPage}
+        totalPosts={newsArticles.length}
+        currentPage={currentPage}
+      />
     </>
   );
 };

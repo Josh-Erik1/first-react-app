@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps<CategoryNewsPageProps> = async ({
 
 const CategoryNewsPage = ({ newsArticles }: CategoryNewsPageProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [postPerPage, setPostPerPage] = useState<number>(12);
+  const [postPerPage, setPostPerPage] = useState<number>(8);
 
   const lastPostIndex: number = currentPage * postPerPage;
   const firstPostIndex: number = lastPostIndex - postPerPage;

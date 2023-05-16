@@ -4,7 +4,7 @@ interface PaginationProps {
   totalPosts: number | any;
   postPerPage: number;
   currentPage: number;
-  setCurrentPage: (page: (prev: number) => number) => void;
+  setCurrentPage: (page: (prev: number) => number) => void | number;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -44,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({
             }`}
             key={index}
             onClick={() => {
-              setCurrentPage(page);
+              setCurrentPage((prev) => (prev = page));
               window.scrollTo(0, 0);
             }}
           >
